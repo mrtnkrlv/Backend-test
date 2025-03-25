@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/styles.css">
+    <title>My app</title>
+</head>
+<body>
+    
+    <h1> My web page</h1>
+
+    <!-- 
+    Important tags:
+        (-) <%=  %>:evaluate JS and puts it in page
+        (-) <% %>: evaluates JS but puts nothing in page
+    -->
+
+    <ul> 
+        <% for (let i = 1; i <= numberOfIterations; ++i) { %>
+            <li><%= i %></li>
+        <% } %>
+    </ul>
+
+    <h2><%= Date() %></h2>
+
+    <img src="cat.jpg">
+
+</body>
+</html>
