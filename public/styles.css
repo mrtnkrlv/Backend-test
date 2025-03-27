@@ -7,3 +7,14 @@ body {
 img {
     width: 100%;
 }
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}

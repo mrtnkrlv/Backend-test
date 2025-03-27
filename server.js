@@ -2,9 +2,11 @@
 
 const express = require('express') // Requiring Express library
 const app = express() // Creating new Express app
+const database = require("./database")
+
 app.set("view engine", "ejs") // Express knows that if I'm rendering through
                               // templates it will be EJS
-
+app.use(express.urlencoded({extended: true}))
 
 /*
 // Allowing HTTP get request to come in at root of URL
@@ -24,28 +26,38 @@ app.get("/", (req,res) => {
     })
 })
 
-const notes = [
-    {
-        id: 1,
-        title: "My first note",
-        timestamp: Date.now(),
-        contents: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    },
-    {
-        id: 2,
-        title: "My second note",
-        timestamp: Date.now(),
-        contents: "Hello everyone!"
-    }
-]
-
 app.get("/notes", (req,res) => {
+    const notes = database.getNotes()
     res.render("notes.ejs", {
         notes, 
     })
 })
 
-app.use(express.static("public"))
+app.get("/notes/:id", (req,res) => {
+    const id = +req.params.id
+    //const note = notes.find(note => note.id === id) // find method: searches elements of arrays until condition in callback function is satisfied
+    const note = database.getNote(id)
+    if (!note){
+        res.status(404).render("note404.ejs")
+        return
+    }
+    res.render("singleNote.ejs", {
+        note,
+    })
+})
+
+app.get("/createNote", (req,res) => {
+    res.render("createNote.ejs")
+})
+
+app.post("/notes", (req,res) => {
+    const data = req.body 
+
+    database.addNote(data)
+    res.redirect("/notes")
+})
+
+app.use(express.static('public'))
 
 // Callback function that will be called when successfully listening
 // for HTTP requests
