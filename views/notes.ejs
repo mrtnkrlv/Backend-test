@@ -17,7 +17,7 @@
             <h2> <%= note.title %> </h2>
             <p> <%= note.contents.substring(0, 100) %> ... </p>
             <p> <%= Date(note.timestamp) %> </p>
-            <a href="/notes/ <%= note.id %>">View more</a> 
+            <a href="/notes/<%= note.id %>">View more</a> 
         </li>
     <% }) %>
     </ul>

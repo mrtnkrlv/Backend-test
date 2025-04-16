@@ -61,7 +61,7 @@ app.use(express.static('public'))
 
 // Callback function that will be called when successfully listening
 // for HTTP requests
-const port = 8080 // Port used when app is listening for HTTP requests
+const port = 8081 // Port used when app is listening for HTTP requests
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
